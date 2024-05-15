@@ -25,6 +25,7 @@ class CotizationController extends Controller
             'Fe_Creacion' => $currentDate,
             'ID_Tipo_Cliente' => $tipoCliente,
             "Cotizacion_Status" =>$cotizationStatus,
+            
         ]);
         //get id of type tributes table 
         $tributesIdObject=DB::table('tipo_carga_consolidada_cotizaciones_tributo')->select('ID_Tipo_Tributo')->get();
@@ -58,7 +59,7 @@ class CotizationController extends Controller
                     DB::table('carga_consolidada_cotizaciones_detalles_tributo')->insertGetId([
                         'ID_Proveedor' => $proveedorID,
                         "ID_Cotizacion" => $cotizationID,
-                        'ID_Tributo' => $tribute,
+                        'ID_Tipo_Tributo' => $tribute,
                         "ID_Producto" => $productoID,
                     ]);
                 }   
