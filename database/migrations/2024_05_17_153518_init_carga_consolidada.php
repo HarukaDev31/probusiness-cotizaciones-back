@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
-
 class InitCargaConsolidada extends Migration
 {
     /**
@@ -12,10 +13,9 @@ class InitCargaConsolidada extends Migration
      */
     public function up()
     {
-        $tableCabeceraQuery = "
-        drop table if exists carga_consolidada_cotizaciones_cabecera;
+        $tableCabeceraQuery="
         CREATE TABLE carga_consolidada_cotizaciones_cabecera (
-            ID_Cotizacion INT NOT NULL,
+            ID_Cotizacion INT NOT NULL AUTO_INCREMENT,
             Fe_Creacion DATE NOT NULL,
             N_Cliente TEXT(65535) NULL,
             Empresa TEXT(65535) NULL,
@@ -24,15 +24,13 @@ class InitCargaConsolidada extends Migration
             Cotizacion_Status CHAR(10) NULL,
             PRIMARY KEY (ID_Cotizacion)
         )";
-        $tableTipoTributoTable = "drop table if exists tipo_carga_consolidada_cotizaciones_tributo;
-        CREATE TABLE tipo_carga_consolidada_cotizaciones_tributo (
-            ID_Tipo_Tributo INT NOT NULL,
+        $tableTipoTributoTable="CREATE TABLE tipo_carga_consolidada_cotizaciones_tributo (
+            ID_Tipo_Tributo INT NOT NULL AUTO_INCREMENT,
             Nombre VARCHAR(255) NULL,
             table_key VARCHAR(50) NULL,
             PRIMARY KEY (ID_Tipo_Tributo)
-        );";
-        $insertIntoTipoTributo = "drop table if exists tipo_carga_consolidada_cotizaciones_tributo;
-        INSERT INTO tipo_carga_consolidada_cotizaciones_tributo
+        );" ;
+        $insertIntoTipoTributo="INSERT INTO tipo_carga_consolidada_cotizaciones_tributo
         (ID_Tipo_Tributo, Nombre, table_key)
         VALUES(1, 'Ad Valorem', 'ad-valorem');
         INSERT INTO tipo_carga_consolidada_cotizaciones_tributo
@@ -50,9 +48,8 @@ class InitCargaConsolidada extends Migration
         INSERT INTO tipo_carga_consolidada_cotizaciones_tributo
         (ID_Tipo_Tributo, Nombre, tableKey, table_key)
         VALUES(6, 'ANTIDUMPING',  'antidumping');";
-        $tableDetallesProveedor = "drop table if exists carga_consolidada_cotizaciones_detalles_proovedor;
-       CREATE TABLE information_schema.carga_consolidada_cotizaciones_detalles_proovedor (
-        ID_Proveedor INT NOT NULL,
+       $tableDetallesProveedor="CREATE TABLE information_schema.carga_consolidada_cotizaciones_detalles_proovedor (
+        ID_Proveedor INT NOT NULL AUTO_INCREMENT,
         ID_Cotizacion INT NOT NULL,
         CBM_Total DECIMAL(10,2) NULL,
         Peso_Total DECIMAL(10,2) NULL,
@@ -61,9 +58,9 @@ class InitCargaConsolidada extends Migration
         PRIMARY KEY (ID_Proveedor),
         FOREIGN KEY (ID_Cotizacion) REFERENCES carga_consolidada_cotizaciones_cabecera(ID_Cotizacion)
         );";
-        $tableDetallesProductos = "drop table if exists carga_consolidada_cotizaciones_detalles_producto;
+        $tableDetallesProductos="
         CREATE TABLE information_schema.carga_consolidada_cotizaciones_detalles_producto (
-            ID_Producto INT NOT NULL,
+            ID_Producto INT NOT NULL AUTO_INCREMENT,
             ID_Cotizacion INT NOT NULL,
             ID_Proveedor INT NOT NULL,
             URL_Image TEXT(65535) NULL,
@@ -75,10 +72,9 @@ class InitCargaConsolidada extends Migration
             PRIMARY KEY (ID_Producto),
             FOREIGN KEY (ID_Cotizacion) REFERENCES carga_consolidada_cotizaciones_cabecera(ID_Cotizacion),
             FOREIGN KEY (ID_Proveedor) REFERENCES carga_consolidada_cotizaciones_detalles_proovedor(ID_Proveedor)
-        );";
-        $tableDetallesTributo = "drop table if exists carga_consolidada_cotizaciones_detalles_tributo;
-        CREATE TABLE information_schema.carga_consolidada_cotizaciones_detalles_tributo (
-            ID_Tributo INT NOT NULL,
+        );";  
+        $tableDetallesTributo="CREATE TABLE information_schema.carga_consolidada_cotizaciones_detalles_tributo (
+            ID_Tributo INT NOT NULL  AUTO_INCREMENT,
             ID_Tipo_Tributo INT NOT NULL,
             ID_Producto INT NOT NULL,
             ID_Proveedor INT NOT NULL,
