@@ -42,23 +42,14 @@ class InitCargaConsolidada extends Migration
             PRIMARY KEY (ID_Tipo_Tributo)
         );" ;
         $insertIntoTipoTributo="INSERT INTO tipo_carga_consolidada_cotizaciones_tributo
-        (ID_Tipo_Tributo, Nombre, table_key)
-        VALUES(1, 'Ad Valorem', 'ad-valorem');
-        INSERT INTO tipo_carga_consolidada_cotizaciones_tributo
-        (ID_Tipo_Tributo, Nombre, tableKey, table_key)
-        VALUES(2, 'IGV', 'igv');
-        INSERT INTO tipo_carga_consolidada_cotizaciones_tributo
-        (ID_Tipo_Tributo, Nombre, tableKey, table_key)
-        VALUES(3, 'IPM',  'ipm');
-        INSERT INTO tipo_carga_consolidada_cotizaciones_tributo
-        (ID_Tipo_Tributo, Nombre, tableKey, table_key)
-        VALUES(4, 'PERCEPCION', , 'percepcion');
-        INSERT INTO tipo_carga_consolidada_cotizaciones_tributo
-        (ID_Tipo_Tributo, Nombre, tableKey, table_key)
-        VALUES(5, 'VALORACION', , 'valoracion');
-        INSERT INTO tipo_carga_consolidada_cotizaciones_tributo
-        (ID_Tipo_Tributo, Nombre, tableKey, table_key)
-        VALUES(6, 'ANTIDUMPING',  'antidumping');";
+        ( Nombre, table_key)
+        VALUES('Ad Valorem','ad-valorem'),  
+        ('IGV','igv'),
+        ('IPM','ipm'),
+        ('PERCEPCION','percepcion'),
+        ('VALORACION','valoracion'),
+        ('ANTIDUMPING','antidumping');	
+";
        $tableDetallesProveedor="CREATE TABLE information_schema.carga_consolidada_cotizaciones_detalles_proovedor (
         ID_Proveedor INT NOT NULL AUTO_INCREMENT,
         ID_Cotizacion INT NOT NULL,
