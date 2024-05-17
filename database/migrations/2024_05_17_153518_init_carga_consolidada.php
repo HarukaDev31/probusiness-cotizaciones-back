@@ -21,32 +21,31 @@ class InitCargaConsolidada extends Migration
             Empresa TEXT(65535) NULL,
             Cotizacion DECIMAL(10,2) NULL,
             ID_Tipo_Cliente INT NOT NULL,
-            Cotizacion_Status CHAR(10) NULL
+            Cotizacion_Status CHAR(10) NULL,
             PRIMARY KEY (ID_Cotizacion)
         )";
-        DB::statement($tableCabeceraQuery);
         $tableTipoTributoTable="CREATE TABLE tipo_carga_consolidada_cotizaciones_tributo (
             ID_Tipo_Tributo INT NOT NULL,
             Nombre VARCHAR(255) NULL,
-            table_key VARCHAR(50) NULL
+            table_key VARCHAR(50) NULL,
             PRIMARY KEY (ID_Tipo_Tributo)
         );" ;
-        $insertIntoTipoTributo="INSERT INTO intranetprobusiness.tipo_carga_consolidada_cotizaciones_tributo
+        $insertIntoTipoTributo="INSERT INTO tipo_carga_consolidada_cotizaciones_tributo
         (ID_Tipo_Tributo, Nombre, , table_key)
         VALUES(1, 'Ad Valorem', 'ad-valorem');
-        INSERT INTO intranetprobusiness.tipo_carga_consolidada_cotizaciones_tributo
+        INSERT INTO tipo_carga_consolidada_cotizaciones_tributo
         (ID_Tipo_Tributo, Nombre, tableKey, table_key)
         VALUES(2, 'IGV', 'igv');
-        INSERT INTO intranetprobusiness.tipo_carga_consolidada_cotizaciones_tributo
+        INSERT INTO tipo_carga_consolidada_cotizaciones_tributo
         (ID_Tipo_Tributo, Nombre, tableKey, table_key)
         VALUES(3, 'IPM',  'ipm');
-        INSERT INTO intranetprobusiness.tipo_carga_consolidada_cotizaciones_tributo
+        INSERT INTO tipo_carga_consolidada_cotizaciones_tributo
         (ID_Tipo_Tributo, Nombre, tableKey, table_key)
         VALUES(4, 'PERCEPCION', , 'percepcion');
-        INSERT INTO intranetprobusiness.tipo_carga_consolidada_cotizaciones_tributo
+        INSERT INTO tipo_carga_consolidada_cotizaciones_tributo
         (ID_Tipo_Tributo, Nombre, tableKey, table_key)
         VALUES(5, 'VALORACION', , 'valoracion');
-        INSERT INTO intranetprobusiness.tipo_carga_consolidada_cotizaciones_tributo
+        INSERT INTO tipo_carga_consolidada_cotizaciones_tributo
         (ID_Tipo_Tributo, Nombre, tableKey, table_key)
         VALUES(6, 'ANTIDUMPING',  'antidumping');";
        $tableDetallesProveedor="CREATE TABLE information_schema.carga_consolidada_cotizaciones_detalles_proovedor (
@@ -56,7 +55,7 @@ class InitCargaConsolidada extends Migration
         Peso_Total DECIMAL(10,2) NULL,
         URL_Proforma TEXT(65535) NULL,
         URL_Packing TEXT(65535) NULL
-        PRIMARY KEY (ID_Proveedor)
+        PRIMARY KEY (ID_Proveedor),
         FOREIGN KEY (ID_Cotizacion) REFERENCES carga_consolidada_cotizaciones_cabecera(ID_Cotizacion)
         );";
         $tableDetallesProductos="
@@ -69,9 +68,9 @@ class InitCargaConsolidada extends Migration
             Nombre_Comercial VARCHAR(500) NULL,
             Uso TEXT(65535) NULL,
             Cantidad DECIMAL(10,2) NULL,
-            Valor_unitario DECIMAL(10,2) NULL
-            PRIMARY KEY (ID_Producto)
-            FOREIGN KEY (ID_Cotizacion) REFERENCES carga_consolidada_cotizaciones_cabecera(ID_Cotizacion)
+            Valor_unitario DECIMAL(10,2) NULL,
+            PRIMARY KEY (ID_Producto),
+            FOREIGN KEY (ID_Cotizacion) REFERENCES carga_consolidada_cotizaciones_cabecera(ID_Cotizacion),
             FOREIGN KEY (ID_Proveedor) REFERENCES carga_consolidada_cotizaciones_detalles_proovedor(ID_Proveedor)
         );";  
         $tableDetallesTributo="CREATE TABLE information_schema.carga_consolidada_cotizaciones_detalles_tributo (
@@ -82,12 +81,18 @@ class InitCargaConsolidada extends Migration
             ID_Cotizacion INT NOT NULL,
             Status enum('Pending','Completed') NULL default 'Pending',
             value DECIMAL(10,2) NULL,
-            PRIMARY KEY (ID_Tributo)
-            FOREIGN KEY (ID_Tipo_Tributo) REFERENCES tipo_carga_consolidada_cotizaciones_tributo(ID_Tipo_Tributo)
-            FOREIGN KEY (ID_Producto) REFERENCES carga_consolidada_cotizaciones_detalles_producto(ID_Producto)
-            FOREIGN KEY (ID_Proveedor) REFERENCES carga_consolidada_cotizaciones_detalles_proovedor(ID_Proveedor)
+            PRIMARY KEY (ID_Tributo),
+            FOREIGN KEY (ID_Tipo_Tributo) REFERENCES tipo_carga_consolidada_cotizaciones_tributo(ID_Tipo_Tributo),
+            FOREIGN KEY (ID_Producto) REFERENCES carga_consolidada_cotizaciones_detalles_producto(ID_Producto),
+            FOREIGN KEY (ID_Proveedor) REFERENCES carga_consolidada_cotizaciones_detalles_proovedor(ID_Proveedor),
             FOREIGN KEY (ID_Cotizacion) REFERENCES carga_consolidada_cotizaciones_cabecera(ID_Cotizacion)
         );";
+        DB::statement($tableCabeceraQuery);
+        DB::statement($tableTipoTributoTable);
+        DB::statement($insertIntoTipoTributo);
+        DB::statement($tableDetallesProveedor);
+        DB::statement($tableDetallesProductos);
+        DB::statement($tableDetallesTributo);
     }
 
     /**
