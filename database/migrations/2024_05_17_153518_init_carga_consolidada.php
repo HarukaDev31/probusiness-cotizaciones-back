@@ -56,7 +56,7 @@ class InitCargaConsolidada extends Migration
         CBM_Total DECIMAL(10,2) NULL,
         Peso_Total DECIMAL(10,2) NULL,
         URL_Proforma TEXT(65535) NULL,
-        URL_Packing TEXT(65535) NULL
+        URL_Packing TEXT(65535) NULL,
         PRIMARY KEY (ID_Proveedor),
         FOREIGN KEY (ID_Cotizacion) REFERENCES carga_consolidada_cotizaciones_cabecera(ID_Cotizacion)
         );";
