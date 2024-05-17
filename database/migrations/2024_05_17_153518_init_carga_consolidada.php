@@ -13,6 +13,17 @@ class InitCargaConsolidada extends Migration
      */
     public function up()
     {
+        $dropTableCabeceraQuery="DROP TABLE IF EXISTS carga_consolidada_cotizaciones_cabecera";
+        $dropTableTipoTributoQuery="DROP TABLE IF EXISTS tipo_carga_consolidada_cotizaciones_tributo";
+        $dropTableDetallesProveedor="DROP TABLE IF EXISTS carga_consolidada_cotizaciones_detalles_proovedor";
+        $dropTableDetallesProductos="DROP TABLE IF EXISTS carga_consolidada_cotizaciones_detalles_producto";
+        $dropTableDetallesTributo="DROP TABLE IF EXISTS carga_consolidada_cotizaciones_detalles_tributo";
+        DB::statement($dropTableCabeceraQuery);
+        DB::statement($dropTableTipoTributoQuery);
+        DB::statement($dropTableDetallesProveedor);
+        DB::statement($dropTableDetallesProductos);
+        DB::statement($dropTableDetallesTributo);
+        
         $tableCabeceraQuery="
         CREATE TABLE carga_consolidada_cotizaciones_cabecera (
             ID_Cotizacion INT NOT NULL AUTO_INCREMENT,
