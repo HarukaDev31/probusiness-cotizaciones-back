@@ -1,9 +1,8 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+
 class InitCargaConsolidada extends Migration
 {
     /**
@@ -13,7 +12,8 @@ class InitCargaConsolidada extends Migration
      */
     public function up()
     {
-        $tableCabeceraQuery="
+        $tableCabeceraQuery = "
+        drop table if exists carga_consolidada_cotizaciones_cabecera;
         CREATE TABLE carga_consolidada_cotizaciones_cabecera (
             ID_Cotizacion INT NOT NULL,
             Fe_Creacion DATE NOT NULL,
@@ -24,14 +24,16 @@ class InitCargaConsolidada extends Migration
             Cotizacion_Status CHAR(10) NULL,
             PRIMARY KEY (ID_Cotizacion)
         )";
-        $tableTipoTributoTable="CREATE TABLE tipo_carga_consolidada_cotizaciones_tributo (
+        $tableTipoTributoTable = "drop table if exists tipo_carga_consolidada_cotizaciones_tributo;
+        CREATE TABLE tipo_carga_consolidada_cotizaciones_tributo (
             ID_Tipo_Tributo INT NOT NULL,
             Nombre VARCHAR(255) NULL,
             table_key VARCHAR(50) NULL,
             PRIMARY KEY (ID_Tipo_Tributo)
-        );" ;
-        $insertIntoTipoTributo="INSERT INTO tipo_carga_consolidada_cotizaciones_tributo
-        (ID_Tipo_Tributo, Nombre, , table_key)
+        );";
+        $insertIntoTipoTributo = "drop table if exists tipo_carga_consolidada_cotizaciones_tributo;
+        INSERT INTO tipo_carga_consolidada_cotizaciones_tributo
+        (ID_Tipo_Tributo, Nombre, table_key)
         VALUES(1, 'Ad Valorem', 'ad-valorem');
         INSERT INTO tipo_carga_consolidada_cotizaciones_tributo
         (ID_Tipo_Tributo, Nombre, tableKey, table_key)
@@ -48,7 +50,8 @@ class InitCargaConsolidada extends Migration
         INSERT INTO tipo_carga_consolidada_cotizaciones_tributo
         (ID_Tipo_Tributo, Nombre, tableKey, table_key)
         VALUES(6, 'ANTIDUMPING',  'antidumping');";
-       $tableDetallesProveedor="CREATE TABLE information_schema.carga_consolidada_cotizaciones_detalles_proovedor (
+        $tableDetallesProveedor = "drop table if exists carga_consolidada_cotizaciones_detalles_proovedor;
+       CREATE TABLE information_schema.carga_consolidada_cotizaciones_detalles_proovedor (
         ID_Proveedor INT NOT NULL,
         ID_Cotizacion INT NOT NULL,
         CBM_Total DECIMAL(10,2) NULL,
@@ -58,7 +61,7 @@ class InitCargaConsolidada extends Migration
         PRIMARY KEY (ID_Proveedor),
         FOREIGN KEY (ID_Cotizacion) REFERENCES carga_consolidada_cotizaciones_cabecera(ID_Cotizacion)
         );";
-        $tableDetallesProductos="
+        $tableDetallesProductos = "drop table if exists carga_consolidada_cotizaciones_detalles_producto;
         CREATE TABLE information_schema.carga_consolidada_cotizaciones_detalles_producto (
             ID_Producto INT NOT NULL,
             ID_Cotizacion INT NOT NULL,
@@ -72,8 +75,9 @@ class InitCargaConsolidada extends Migration
             PRIMARY KEY (ID_Producto),
             FOREIGN KEY (ID_Cotizacion) REFERENCES carga_consolidada_cotizaciones_cabecera(ID_Cotizacion),
             FOREIGN KEY (ID_Proveedor) REFERENCES carga_consolidada_cotizaciones_detalles_proovedor(ID_Proveedor)
-        );";  
-        $tableDetallesTributo="CREATE TABLE information_schema.carga_consolidada_cotizaciones_detalles_tributo (
+        );";
+        $tableDetallesTributo = "drop table if exists carga_consolidada_cotizaciones_detalles_tributo;
+        CREATE TABLE information_schema.carga_consolidada_cotizaciones_detalles_tributo (
             ID_Tributo INT NOT NULL,
             ID_Tipo_Tributo INT NOT NULL,
             ID_Producto INT NOT NULL,
