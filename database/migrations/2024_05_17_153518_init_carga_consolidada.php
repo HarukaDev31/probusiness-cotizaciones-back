@@ -50,7 +50,7 @@ class InitCargaConsolidada extends Migration
         ('VALORACION','valoracion'),
         ('ANTIDUMPING','antidumping');	
 ";
-       $tableDetallesProveedor="CREATE TABLE information_schema.carga_consolidada_cotizaciones_detalles_proovedor (
+       $tableDetallesProveedor="CREATE TABLE carga_consolidada_cotizaciones_detalles_proovedor (
         ID_Proveedor INT NOT NULL AUTO_INCREMENT,
         ID_Cotizacion INT NOT NULL,
         CBM_Total DECIMAL(10,2) NULL,
@@ -61,7 +61,7 @@ class InitCargaConsolidada extends Migration
         FOREIGN KEY (ID_Cotizacion) REFERENCES carga_consolidada_cotizaciones_cabecera(ID_Cotizacion)
         );";
         $tableDetallesProductos="
-        CREATE TABLE information_schema.carga_consolidada_cotizaciones_detalles_producto (
+        CREATE TABLE carga_consolidada_cotizaciones_detalles_producto (
             ID_Producto INT NOT NULL AUTO_INCREMENT,
             ID_Cotizacion INT NOT NULL,
             ID_Proveedor INT NOT NULL,
