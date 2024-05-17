@@ -75,7 +75,7 @@ class InitCargaConsolidada extends Migration
             FOREIGN KEY (ID_Cotizacion) REFERENCES carga_consolidada_cotizaciones_cabecera(ID_Cotizacion),
             FOREIGN KEY (ID_Proveedor) REFERENCES carga_consolidada_cotizaciones_detalles_proovedor(ID_Proveedor)
         );";  
-        $tableDetallesTributo="CREATE TABLE information_schema.carga_consolidada_cotizaciones_detalles_tributo (
+        $tableDetallesTributo="CREATE TABLE carga_consolidada_cotizaciones_detalles_tributo (
             ID_Tributo INT NOT NULL  AUTO_INCREMENT,
             ID_Tipo_Tributo INT NOT NULL,
             ID_Producto INT NOT NULL,
